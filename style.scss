@@ -1,24 +1,12 @@
 @use "sass:math";
 @use "sass:string";
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
   margin: 0;
   padding: 0;
 
   /* make it look decent enough */
   background: #232323;
-  color: #cdcdcd;
-  font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
 $bar-height: 5;
@@ -33,7 +21,6 @@ $cross-size: #{(
   ) * 1px};
 @debug "cross size: #{$cross-size}";
 #menuToggle {
-  display: block;
   position: relative;
   top: 20px;
   left: 50px;
@@ -45,8 +32,6 @@ $cross-size: #{(
 
   border: #{$border-width * 1px} solid red;
   width: $bar-width-unit;
-
-  box-sizing: content-box;
 }
 
 #menuToggle a {
@@ -56,17 +41,12 @@ $cross-size: #{(
   transition: color 0.3s ease;
 }
 
-#menuToggle a:hover {
-  color: tomato;
-}
-
 #menuToggle input {
   display: block;
-  width: 40px;
-  height: 32px;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: -7px;
-  left: -5px;
+  margin: 0;
 
   cursor: pointer;
 
@@ -129,37 +109,4 @@ $cross-size: #{(
 #menuToggle input:checked ~ span:last-of-type {
   width: $cross-size;
   transform: rotate(-45deg);
-}
-
-/*
- * Make this absolute positioned
- * at the top left of the screen
- */
-#menu {
-  position: absolute;
-  width: 300px;
-  padding: 50px;
-  padding-top: 125px;
-
-  background: #ededed;
-  list-style-type: none;
-  -webkit-font-smoothing: antialiased;
-  /* to stop flickering of text in safari */
-
-  transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
-
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-}
-
-#menu li {
-  padding: 10px 0;
-  font-size: 22px;
-}
-
-/*
- * And let's slide it in from the left
- */
-#menuToggle input:checked ~ ul {
-  transform: none;
 }
