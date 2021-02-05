@@ -109,9 +109,8 @@ $cross-size: #{(
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span {
+#menuToggle input:checked ~ span:first-of-type {
   opacity: 1;
-  /* width: calc(#{$bar-height-unit} * 10); */
   width: $cross-size;
   transform: rotate(45deg);
 }
@@ -119,7 +118,7 @@ $cross-size: #{(
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3) {
+#menuToggle input:checked ~ span:nth-of-type(2) {
   opacity: 0;
   transform: rotate(0deg);
 }
@@ -127,7 +126,8 @@ $cross-size: #{(
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2) {
+#menuToggle input:checked ~ span:last-of-type {
+  width: $cross-size;
   transform: rotate(-45deg);
 }
 
