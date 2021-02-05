@@ -5,15 +5,16 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
-body
-{
+body {
   margin: 0;
   padding: 0;
-  
+
   /* make it look decent enough */
   background: #232323;
   color: #cdcdcd;
@@ -21,91 +22,83 @@ body
 }
 
 $bar-height: 5;
-$bar-height-unit: #{$bar-height}px;
+$bar-height-unit: #{$bar-height * 1px};
 $bar-width: $bar-height * 5;
-$bar-width-unit: #{$bar-height * 5}px;
+@debug "bar width: #{$bar-width}";
+$bar-width-unit: #{$bar-height * 5 * 1px};
 $border-width: 1;
-$cross-size: #{math.floor(math.sqrt($bar-width * $bar-width * 2)) - $border-width * 2}px;
-
-#menuToggle
-{
+$cross-size: #{math.sqrt(math.pow($bar-width - $bar-height / 2, 2) * 2) * 1px};
+@debug "cross size: #{$cross-size}";
+#menuToggle {
   display: block;
   position: relative;
   top: 20px;
   left: 50px;
-  
+
   z-index: 1;
-  
+
   -webkit-user-select: none;
   user-select: none;
-  
+
   border: #{$border-width * 1px} solid red;
   width: $bar-width-unit;
-  
+
   box-sizing: content-box;
 }
 
-#menuToggle a
-{
+#menuToggle a {
   text-decoration: none;
   color: #232323;
-  
+
   transition: color 0.3s ease;
 }
 
-#menuToggle a:hover
-{
+#menuToggle a:hover {
   color: tomato;
 }
 
-#menuToggle input
-{
+#menuToggle input {
   display: block;
   width: 40px;
   height: 32px;
   position: absolute;
   top: -7px;
   left: -5px;
-  
+
   cursor: pointer;
-  
+
   opacity: 0; /* hide this */
   z-index: 2; /* and place it over the hamburger */
-  
+
   -webkit-touch-callout: none;
 }
 
 /*
  * Just a quick hamburger
  */
-#menuToggle span
-{
+#menuToggle span {
   display: block;
   width: $bar-width-unit;
   height: $bar-height-unit;
   margin-bottom: $bar-height-unit;
-  border-radius: 3px;
-  
+  /* border-radius: #{$bar-height / 2 * 1px}; */
+
   background: green;
-  /* border-radius: 3px; */
-  
+
   z-index: 1;
-  
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
 
-#menuToggle span:first-of-type
-{
+#menuToggle span:first-of-type {
   background: pink;
   transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
 }
 
-#menuToggle span:last-of-type
-{
+#menuToggle span:last-of-type {
   margin-bottom: 0;
-  background: purple; 
+  background: purple;
   transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
 }
 
@@ -113,19 +106,17 @@ $cross-size: #{math.floor(math.sqrt($bar-width * $bar-width * 2)) - $border-widt
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span
-{  
+#menuToggle input:checked ~ span {
   opacity: 1;
   /* width: calc(#{$bar-height-unit} * 10); */
   width: $cross-size;
-  transform:rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3)
-{
+#menuToggle input:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg);
 }
@@ -133,8 +124,7 @@ $cross-size: #{math.floor(math.sqrt($bar-width * $bar-width * 2)) - $border-widt
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg);
 }
 
@@ -142,26 +132,24 @@ $cross-size: #{math.floor(math.sqrt($bar-width * $bar-width * 2)) - $border-widt
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu
-{
+#menu {
   position: absolute;
   width: 300px;
   padding: 50px;
   padding-top: 125px;
-  
+
   background: #ededed;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
-  
+
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
-  
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 
-#menu li
-{
+#menu li {
   padding: 10px 0;
   font-size: 22px;
 }
@@ -169,7 +157,6 @@ $cross-size: #{math.floor(math.sqrt($bar-width * $bar-width * 2)) - $border-widt
 /*
  * And let's slide it in from the left
  */
-#menuToggle input:checked ~ ul
-{
+#menuToggle input:checked ~ ul {
   transform: none;
 }
