@@ -27,7 +27,10 @@ $bar-width: $bar-height * 5;
 @debug "bar width: #{$bar-width}";
 $bar-width-unit: #{$bar-height * 5 * 1px};
 $border-width: 1;
-$cross-size: #{math.sqrt(math.pow($bar-width - $bar-height / 2, 2) * 2) * 1px};
+$cross-size: #{(
+    math.sqrt(math.pow($bar-width - $bar-height / 2, 2) * 2) +
+      math.sqrt($bar-height) / 2
+  ) * 1px};
 @debug "cross size: #{$cross-size}";
 #menuToggle {
   display: block;
@@ -81,7 +84,7 @@ $cross-size: #{math.sqrt(math.pow($bar-width - $bar-height / 2, 2) * 2) * 1px};
   width: $bar-width-unit;
   height: $bar-height-unit;
   margin-bottom: $bar-height-unit;
-  /* border-radius: #{$bar-height / 2 * 1px}; */
+  border-radius: #{$bar-height / 2 * 1px};
 
   background: green;
 
