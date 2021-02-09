@@ -9,17 +9,15 @@ body {
   background: #232323;
 }
 
-$bar-height: 5;
-$bar-height-unit: #{$bar-height * 1px};
-$bar-width: $bar-height * 5;
-@debug "bar width: #{$bar-width}";
+$bar-width: 300;
+$bar-height: $bar-width / 5;
 $bar-width-unit: #{$bar-height * 5 * 1px};
+$bar-height-unit: #{$bar-height * 1px};
 $border-width: 1;
 $cross-size: #{(
-    math.sqrt(math.pow($bar-width - $bar-height / 2, 2) * 2) +
-      math.sqrt($bar-height) / 2
+    math.sqrt(math.pow($bar-width, 2) * 2) -
+      (math.sqrt(math.pow($bar-height, 2) * 2) - $bar-height)
   ) * 1px};
-@debug "cross size: #{$cross-size}";
 #menuToggle {
   position: relative;
   top: 20px;
