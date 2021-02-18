@@ -4,8 +4,6 @@
 body {
   margin: 0;
   padding: 0;
-
-  /* make it look decent enough */
   background: #232323;
 }
 
@@ -13,11 +11,9 @@ $bar-width: 300;
 $bar-height: $bar-width / 5;
 $bar-width-unit: #{$bar-height * 5 * 1px};
 $bar-height-unit: #{$bar-height * 1px};
-$border-width: 1;
-$cross-size: #{(
-    math.sqrt(math.pow($bar-width, 2) * 2) -
-      (math.sqrt(math.pow($bar-height, 2) * 2) - $bar-height)
-  ) * 1px};
+$cross-size: math.sqrt(math.pow($bar-width, 2) * 2) -
+  (math.sqrt(math.pow($bar-height, 2) * 2));
+$cross-width-scale: $cross-size / ($bar-width - $bar-height);
 #menuToggle {
   position: relative;
   top: 20px;
@@ -28,14 +24,15 @@ $cross-size: #{(
   -webkit-user-select: none;
   user-select: none;
 
-  border: #{$border-width * 1px} solid red;
+  border: 1px solid red;
   width: $bar-width-unit;
+  height: $bar-width-unit;
+  font-size: 0;
 }
 
 #menuToggle a {
   text-decoration: none;
   color: #232323;
-
   transition: color 0.3s ease;
 }
 
@@ -54,57 +51,51 @@ $cross-size: #{(
   -webkit-touch-callout: none;
 }
 
-/*
- * Just a quick hamburger
- */
 #menuToggle span {
-  display: block;
-  width: $bar-width-unit;
-  height: $bar-height-unit;
-  margin-bottom: $bar-height-unit;
-  border-radius: #{$bar-height / 2 * 1px};
-
-  background: green;
-
   z-index: 1;
-
+  height: $bar-height-unit;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
     background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
 
-#menuToggle span:first-of-type {
-  background: pink;
-  transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
-}
-
-#menuToggle span:last-of-type {
-  margin-bottom: 0;
-  background: purple;
-  transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
-}
-
-/* 
- * Transform all the slices of hamburger
- * into a crossmark.
- */
-#menuToggle input:checked ~ span:first-of-type {
+#menuToggle input:checked ~ span#bar-1 {
   opacity: 1;
-  width: $cross-size;
-  transform: rotate(45deg);
+  transform-origin: 0 calc(#{$bar-height-unit} / 2);
+  transform: rotate(45deg) scaleX($cross-width-scale);
 }
 
-/*
- * But let's hide the middle one.
- */
-#menuToggle input:checked ~ span:nth-of-type(2) {
-  opacity: 0;
-  transform: rotate(0deg);
+#menuToggle input:checked ~ span#bar-1-right {
+  opacity: 1;
+  transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
+  transform: translate(0, #{($bar-width - $bar-height) * 1px});
 }
 
-/*
- * Ohyeah and the last one should go the other direction
- */
-#menuToggle input:checked ~ span:last-of-type {
-  width: $cross-size;
-  transform: rotate(-45deg);
+span#bar-1 {
+  display: inline-block;
+  position: relative;
+  width: #{$bar-width - $bar-height * 1px};
+  left: #{$bar-height / 2 * 1px};
+  transform-origin: calc(#{$bar-height-unit} / 2) calc(#{$bar-height-unit} / 2);
+  background: pink;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+span#bar-1-left {
+  display: inline-block;
+  position: absolute;
+  width: #{$bar-height * 1px};
+  left: 0;
+  top: 0;
+  border-radius: #{$bar-height * 2 * 1px};
+  background: pink;
+}
+
+span#bar-1-right {
+  display: inline-block;
+  position: absolute;
+  width: #{$bar-height * 1px};
+  right: 0;
+  top: 0;
+  border-radius: #{$bar-height * 2 * 1px};
+  background: pink;
 }
